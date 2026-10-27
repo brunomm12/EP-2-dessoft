@@ -28,8 +28,8 @@ def posiciona_frota(frota):
     for navios in frota.values():
         for posicoes in navios:
             for coordenada in posicoes:
-                linha = coordenada[1]
-                coluna = coordenada[2]
+                linha = coordenada[0]
+                coluna = coordenada[1]
                 tabuleiro[linha][coluna] = 0
                 
     return tabuleiro
