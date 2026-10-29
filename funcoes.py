@@ -72,6 +72,7 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
             return False
         for tipo in frota:
             for navio in frota[tipo]:
+                for ocupada in navio:
                     if ocupada == pos:
                         return False
     return True
