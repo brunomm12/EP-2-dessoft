@@ -22,7 +22,6 @@ def faz_jogada(tabuleiro, linha, coluna):
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
 
-
 def posiciona_frota(frota):
     tabuleiro = []
     for i in range(10):
@@ -30,14 +29,14 @@ def posiciona_frota(frota):
         for j in range(10):
             linha.append(0)
         tabuleiro.append(linha)
-        
+
     for navios in frota.values():
         for posicoes in navios:
             for coordenada in posicoes:
                 linha_navio = coordenada[0]
                 coluna_navio = coordenada[1]
                 tabuleiro[linha_navio][coluna_navio] = 1
-                
+
     return tabuleiro
 
 def afundados(frota, tabuleiro):
@@ -53,17 +52,8 @@ def afundados(frota, tabuleiro):
                     break
             if afundado:
                 quantidade_afundados += 1
-                
-    return quantidade_afundados
 
-def define_posicoes(linha, coluna, orientacao, tamanho):
-    posicoes = []
-    for i in range(tamanho):
-        if orientacao == "vertical":
-            posicoes.append([linha + i, coluna])
-        else:
-            posicoes.append([linha, coluna + i])
-    return posicoes
+    return quantidade_afundados
 
 def posicao_valida(frota, linha, coluna, orientacao, tamanho):
     posicoes = define_posicoes(linha, coluna, orientacao, tamanho)
@@ -76,43 +66,3 @@ def posicao_valida(frota, linha, coluna, orientacao, tamanho):
                     if ocupada == pos:
                         return False
     return True
-
-frota = {
-    "porta-aviões": [],
-    "navio-tanque": [],
-    "contratorpedeiro": [],
-    "submarino": [],
-}
-
-nomes = ["porta-aviões", "navio-tanque", "contratorpedeiro", "submarino"]
-tamanhos = [4, 3, 2, 1]
-quantidades = [1, 2, 3, 4]
-
-k = 0
-while k < len(nomes):
-    nome = nomes[k]
-    tamanho = tamanhos[k]
-    q = 0
-    while q < quantidades[k]:
-        print(f"Insira as informações referentes ao navio {nome} que possui tamanho {tamanho}")
-        posicionado = False
-        while not posicionado:
-            linha = int(input("Linha: "))
-            coluna = int(input("Coluna: "))
-            if tamanho > 1:
-                escolha = int(input("[1] Vertical [2] Horizontal > "))
-                if escolha == 1:
-                    orientacao = "vertical"
-                else:
-                    orientacao = "horizontal"
-            else:
-                orientacao = "horizontal"
-            if posicao_valida(frota, linha, coluna, orientacao, tamanho):
-                frota = preenche_frota(frota, nome, linha, coluna, orientacao, tamanho)
-                posicionado = True
-            else:
-                print("Esta posição não está válida!")
-        q += 1
-    k += 1
-
-print(frota) 
